@@ -1,18 +1,9 @@
 import Foundation
 import Firebase
 
-
 class PostAPI {
   
-  // Start by creating a reference to the Firebase Database's child folder (sub-folder) called "Posts"
   var REF_POSTS = Database.database().reference().child("posts")
-  
-  // Turn snapshot
-  // An escaping function invokes the closure after the function returns - newPost is of type, Post and is used after the lifetime of the function
-  // First, we're observing the database to see when a child is added to the REF_POSTS database
-  // This observation will return a snapshot of the REF_POSTS database in the form of a dictionary [String: Any]
-  // A new post will be created in the form of the Post class by transforming that postDictionary and snapshot key into a Post() object
-  // Completion will return newPost with type Post
   
   func observePosts(completion: @escaping (Post) -> Void) {
     REF_POSTS.observe(.childAdded) { (snapshot: DataSnapshot) in
@@ -34,3 +25,7 @@ class PostAPI {
   }
   
 }
+
+  // What's the point of PostAPI (in other words, a post's communication with Firebase)? 
+  // (1) To create a child database in firebase for posts -- child("posts") 
+  // (2) To get a dictionary of values from the Firebase database, and converting these values (from a Firebase snapshot) into a Post class
